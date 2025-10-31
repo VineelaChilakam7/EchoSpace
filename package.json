@@ -1,0 +1,20 @@
+{
+  "name": "echospace",
+  "version": "1.0.0",
+  "description": "A real-time chat application built with React and Node.js featuring user authentication, room creation with unique codes, and live messaging.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VineelaChilakam7/EchoSpace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VineelaChilakam7/EchoSpace/issues"
+  },
+  "homepage": "https://github.com/VineelaChilakam7/EchoSpace#readme"
+}
