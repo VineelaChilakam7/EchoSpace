@@ -3,6 +3,8 @@ import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+import authRoutes from "./routes/authRoutes.js"; // ✅ Important
 
 dotenv.config();
 
@@ -10,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // React dev server
+    origin: "http://localhost:5174",
     methods: ["GET", "POST"],
   },
 });
@@ -18,16 +20,19 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Server is running...");
-});
+// ✅ MongoDB connection (already working)
+await mongoose.connect(process.env.MONGO_URI);
+console.log("✅ MongoDB connected");
 
+// ✅ Register the routes
+app.use("/api/auth", authRoutes);
+
+app.get("/", (req, res) => res.send("Server is running..."));
+
+// socket.io setup
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-  });
+  socket.on("disconnect", () => console.log("User disconnected:", socket.id));
 });
 
 const PORT = process.env.PORT || 4000;
